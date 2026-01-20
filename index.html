@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vantage View – Tropical Living Redefined - MANJU GROUPS</title>
+
+<!-- Stylesheets -->
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+<link href="assets/css/responsive.css" rel="stylesheet">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+<link rel="shortcut icon" href="assets/images/VV-IMPROVED.png" type="image/x-icon">
+<link rel="icon" href="assets/images/VV-IMPROVED.png" type="image/x-icon">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+
+<!-- Quick Call Booking Modal -->
+<div class="call-modal" id="callModal">
+  <div class="call-modal-box">
+
+    <span class="call-close" id="closeCallModal">&times;</span>
+
+    <h3>Book a Call Session</h3>
+    <p>Our executive will call you shortly</p>
+
+    <input type="text" id="callName" placeholder="Full Name *" required>
+    <input type="tel" id="callPhone" placeholder="Phone Number *" required>
+    <select id="callTime">
+      <option value="">Preferred Time</option>
+      <option>Morning (9 AM – 12 PM)</option>
+      <option>Afternoon (12 PM – 4 PM)</option>
+      <option>Evening (4 PM – 7 PM)</option>
+    </select>
+
+    <button id="bookCallBtn">Book Call</button>
+
+  </div>
+</div>
+
+
+<!-- Master Plan Popup -->
+<div class="mp-modal" id="mpModal">
+  <div class="mp-modal-box">
+
+    <span class="mp-close" id="closeModal">&times;</span>
+
+    <h3>View Master Plan</h3>
+    <p>Please provide your details</p>
+
+    <input type="text" id="mpName" placeholder="Full Name *">
+    <input type="tel" id="mpPhone" placeholder="Phone Number *">
+    <textarea id="mpReason" placeholder="Reason for Visit"></textarea>
+
+    <button id="submitDetails">Submit & Unlock</button>
+
+  </div>
+</div>
+
+
+<!-- Brochure Modal -->
+<div class="brochure-modal" id="brochureModal">
+  <div class="brochure-modal-box">
+
+    <span class="brochure-close" id="closeBrochureModal">&times;</span>
+
+    <h3>Download Brochure</h3>
+    <p>Please share your details to proceed</p>
+
+    <input type="text" id="brochureName" placeholder="Full Name *" required>
+    <input type="tel" id="brochurePhone" placeholder="Phone Number *" required>
+    <input type="email" id="brochureEmail" placeholder="Email Address *" required>
+    <textarea id="brochureReason" placeholder="Reason for Visit"></textarea>
+
+    <button id="downloadBrochureBtn">Submit & Download</button>
+
+  </div>
+</div>
+
+
+<script src='https://cdn.jotfor.ms/agent/embedjs/019bd57a82a97cf1a2ec37a7810cf23e428b/embed.js'>
+</script>    
+
+<script>
+let tempImages = [];
+
+/* Open the form first */
+function openFloorForm(images) {
+  tempImages = images;
+  document.getElementById("floorFormModal").style.display = "flex";
+}
+
+/* After submit → show gallery */
+document.getElementById("floorLeadForm")?.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Hide form
+  document.getElementById("floorFormModal").style.display = "none";
+
+  // Load and show gallery
+  showFloorGallery();
+});
+
+/* Inject images + open slider */
+function showFloorGallery() {
+  let wrap = document.getElementById("floorGallery");
+  wrap.innerHTML = "";
+
+  tempImages.forEach(img => {
+    wrap.innerHTML += `
+      <div class="swiper-slide">
+        <img src="${img}" alt="Floor Plan"/>
+      </div>
+    `;
+  });
+
+  document.getElementById("floorModal").style.display = "flex";
+
+  // Update Swiper
+  if (typeof floorSwiper !== "undefined") {
+    floorSwiper.update();
+  }
+}
+
+/* Close handlers */
+document.getElementById("floorCloseBtn").onclick = () =>
+  document.getElementById("floorModal").style.display = "none";
+
+document.getElementById("floorFormCloseBtn").onclick = () =>
+  document.getElementById("floorFormModal").style.display = "none";
+</script>
+
+<body>
+
+  <!-- Register Interest Popup -->
+<div id="interestModal" class="interest-modal">
+  <div class="interest-modal-box">
+    <span class="interest-close" onclick="closeInterest()">×</span>
+
+    <h3>Register Your Interest</h3>
+    <p>Share your details and we will contact you shortly.</p>
+
+    <input type="text" id="interestName" placeholder="Full Name" required>
+    <input type="tel" id="interestPhone" placeholder="Phone Number" required>
+    <input type="email" id="interestEmail" placeholder="Email Address" required>
+
+    <button onclick="submitInterest()">Submit</button>
+  </div>
+</div>
+
+<div class="page-wrapper">
+	
+	<!-- Cursor -->
+	 <div class="custom-cursor" id="customCursor"></div>
+	<!-- Cursor End -->
+ 	
+	<!-- Preloader -->
+	<div class="preloader">
+		<div class="box"></div>
+	</div>
+	
+	<!-- Main Header -->
+	<header class="main-header">
+
+		<!-- Header Lower -->
+		<div class="header-lower">
+			<div class="auto-container">
+				<div class="inner-container">
+					<div class="d-flex justify-content-between align-items-center flex-wrap">
+							
+						<!-- Logo Box -->
+						<div class="logo-box">
+							<div class="logo"><a href="index.html"><img src="assets/images/VV-IMPROVED.png" alt="" title=""></a></div>
+						</div>
+						<!-- End Logo Box -->
+						
+						<!-- Nav Outer -->
+						<div class="nav-outer d-flex align-items-center flex-wrap">
+							<!-- Main Menu -->
+							<nav class="main-menu navbar-expand-md">
+								<div class="navbar-header">
+									<!-- Toggle Button -->    	
+									<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+								
+								<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+									<ul class="navigation clearfix">
+										<li class="dropdown"><a href="#">Home</a>
+											
+										</li>
+										<li class="dropdown"><a href="#story-one">About</a>
+										
+										</li>
+			
+										<li class="dropdown"><a href="#master-plan-section">property</a>
+				
+										</li>
+										<li class="dropdown"><a href="#testimonial-three style-two">Blog</a>
+										</li>
+										<li><a href="#contact-one">Contact</a></li>
+									</ul>
+								</div>
+							</nav>
+						</div>
+						<!-- End Nav Outer -->
+					
+
+						<!-- Outer Box -->
+						<div class="outer-box d-flex align-items-center flex-wrap">
+
+  <!-- Phone Call Button -->
+  <a href="tel:+9197444333666" class="theme-btn btn-style-one call-btn breathing">
+  <span class="btn-wrap">
+    <span class="text-one">
+      <i class="fa-solid fa-phone"></i> +91 97 44 333 666
+    </span>
+    <span class="text-two">
+      <i class="fa-solid fa-phone"></i> +91 97 44 333 666
+    </span>
+  </span>
+</a>
+
+
+  <!-- Header Button Box -->
+  <div class="header_button-box">
+    <a href="javascript:void(0)" class="theme-btn btn-style-one" id="openCallModal">
+      <span class="btn-wrap">
+        <span class="text-one">BOOK NOW</span>
+        <span class="text-two">BOOK NOW</span>
+      </span>
+    </a>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav-toggler">
+    <span class="icon flaticon-menu"></span>
+  </div>
+
+</div>
+
+						<!-- End Outer Box -->
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Header Lower -->
+		
+		<!-- Mobile Menu  -->
+		<div class="mobile-menu">
+			<div class="menu-backdrop"></div>
+			<div class="close-btn"><span class="icon flaticon-close-1"></span></div>
+			
+			<nav class="menu-box">
+				<div class="nav-logo"><a href="index.html"><img src="assets/images/VV-IMPROVED.png" alt="" title=""></a></div>
+				<div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+			</nav>
+		</div>
+		<!-- End Mobile Menu -->
+		
+	</header>
+	<!-- End Main Header -->
+	
+	<!-- Slider One -->
+	<section class="banner-one">
+		<div class="banner-one_image" style="background-image:url(assets/images/bfpf.jpg)"></div>
+		<div class="auto-container">
+			
+			<!-- Content Column -->
+			<div class="banner-one_content">
+				<div class="banner-one_content-inner">
+				<h1 class="banner-one_heading">Bali 2.0 <br><span>Tropical Farm Estates<br></span> Where everyday feels like a vacation</h1>
+
+					<!-- Banner Tabs -->
+					<div class="banner-tabs">
+						<!-- Product Tabs -->
+						<div class="prod-tabs tabs-box">
+						
+							<!-- Tab Btns -->
+							<ul class="tab-btns tab-buttons clearfix">
+								<li data-tab="#prod-buy" class="tab-btn active-btn">buy</li>
+								
+							</ul>
+							
+							<!-- Tabs Container -->
+							<div class="tabs-content">
+								
+								<!-- Tab -->
+								<div class="tab active-tab" id="prod-buy">
+									<div class="content">
+										<!-- Default Form -->
+										<div class="default-form">
+											<form id="searchForm">
+
+												<div class="row clearfix">
+													
+													<div class="col-lg-4 col-md-4 col-sm-6 form-group">
+														<label>Location</label>
+														<select name="country" class="custom-select-box">
+															<option>Coimbatore</option>
+															<option disabled>Poonnamalle</option>
+															<option disabled>UAE</option>
+															
+														</select>
+													</div>
+													
+													<div class="col-lg-4 col-md-4 col-sm-6 form-group">
+														<label>Type</label>
+														<select name="country" class="custom-select-box">
+															<option>Estate Plot</option>
+															<option>Signature Villa</option>
+															<option>Grand Pavilion Villa</option>
+															<option>Dual Retreat Villas</option>
+														</select>
+													</div>
+													
+													<div class="col-lg-4 col-md-4 col-sm-12 form-group">
+														<label>Price Range</label>
+														<select name="country" class="custom-select-box">
+															<option>50L-60L</option>
+															<option>60L - 70L</option>
+															<option>70L - 80L</option>
+															<option>80L - 90L</option>
+                              <option>Above 90L</option>
+														</select>
+													</div>
+													
+												</div>
+												<!-- Button Box -->
+												<div class="button-box">
+													<button class="submit-btn flaticon-search-interface-symbol"></button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	<!-- End Main Slider Section -->
+	
+	<!-- Story One -->
+	<section class="story-one" id="story-one">
+		<div class="auto-container">
+			<div class="row clearfix">
+				
+				<!-- Image Column -->
+				<div class="story-one_image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="story-one_image-outer">
+						<div class="story-one_image wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+							<img src="assets/images/labout.jpg" alt="" />
+						</div>
+						<div class="story-one_experiance">
+							<div class="story-one_experiance-inner">
+								30k<i>+</i> <span>Happy Customers</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Content Column -->
+				<div class="story-one_content-column col-lg-6 col-md-12 col-sm-12">
+					<div class="story-one_content-outer">
+						<!-- Sec Title -->
+<div class="sec-title">
+  <div class="sec-title_title">About the Project</div>
+  <h2 class="sec-title_heading">Vantage View</h2>
+
+  <div class="sec-title_text">
+    Set amidst the green expanse of Kembarampalayam, Vantage View is thoughtfully envisioned to offer a life where nature and comfort coexist.
+With coconut-lined avenues, landscaped walkways and open spaces that breathe, every detail is inspired by the energy of the tropics.
+From the pavilion-style clubhouse and resort-style pool to sustainable coconut plantations, Vantage View creates a natural retreat that feels like a permanent vacation.
+Whether you’re investing in a weekend getaway or building a dream farmhouse, this is where life slows down — beautifully.
+  </div>
+</div>
+<div class="about-signature">
+
+  <p class="about-tagline">
+    A tropical escape crafted for soulful living
+  </p>
+
+  <div class="about-divider"></div>
+
+  <ul class="about-inline-highlights">
+    <li>
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Kembarampalayam, Coimbatore</span>
+    </li>
+    <li>
+      <i class="fa-solid fa-house"></i>
+      <span>Farm Retreat Plots & Lifestyle Villas</span>
+    </li>
+    <li>
+      <i class="fa-solid fa-chart-line"></i>
+      <span>High Appreciation Potential</span>
+    </li>
+  </ul>
+
+
+</div>
+
+
+<!-- Download Brochure Button -->
+<div class="story-one_button">
+  <a href="javascript:void(0)" class="theme-btn btn-style-one" id="openBrochureModal">
+    <span class="btn-wrap">
+      <span class="text-one">Download Brochure</span>
+      <span class="text-two">Download Brochure</span>
+    </span>
+  </a>
+</div>
+
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+	<!-- End Story One -->
+	
+	<!-- Cities One -->
+<!-- Cities One -->
+<section class="cities-one">
+  <div class="auto-container">
+
+    <!-- Section Title -->
+    <div class="sec-title">
+      <div class="sec-title_title">Explore Amenities</div>
+      <h2 class="sec-title_heading">Take a stroll around <br> surroundings.</h2>
+    </div>
+
+    <div class="inner-container">
+      <div class="four-items_slider swiper-container">
+        <div class="swiper-wrapper">
+
+          <!-- 1. Balinese-Inspired Clubhouse -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/Cclubhouse.jpg" alt="Balinese Inspired Clubhouse" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Balinese-Inspired Clubhouse</h4>
+                      <div class="city-block_one-text">
+                        A beautifully themed social hub for gatherings, celebrations and leisure.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Restaurant & Resto-Bar -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/restaurant.jpg" alt="Restaurant and Resto Bar" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-utensils"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Restaurant & Resto-Bar</h4>
+                      <div class="city-block_one-text">
+                        Curated dining and tropical evenings at a vibrant Bali-style resto bar.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Resort-Style Swimming Pool -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/swimming-pool.jpg" alt="Resort Style Swimming Pool" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-person-swimming"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Resort-Style Swimming Pool</h4>
+                      <div class="city-block_one-text">
+                        A refreshing pool with loungers and greenery for a true island escape.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Indoor Games & Recreation Lounge -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/indoor-games.jpg" alt="Indoor Games and Recreation Lounge" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-gamepad"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Indoor Games & Recreation Lounge</h4>
+                      <div class="city-block_one-text">
+                        A cosy indoor space for board games, table sports and relaxed hangouts.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Thai-Style Spa & Massage Center -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/spa.jpg" alt="Thai Style Spa and Massage Center" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-spa"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Thai-Style Spa & Massage Center</h4>
+                      <div class="city-block_one-text">
+                        Rejuvenating therapies inspired by traditional Thai wellness practices.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Wellness & Relaxation Zones -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/yoga-zone.jpg" alt="Wellness and Relaxation Zones" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-person-praying"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Wellness & Relaxation Zones</h4>
+                      <div class="city-block_one-text">
+                        Peaceful spaces for yoga, meditation and mindful living.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Landscaped Tropical Gardens -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/tropical-garden.jpg" alt="Landscaped Tropical Gardens" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-leaf"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Landscaped Tropical Gardens</h4>
+                      <div class="city-block_one-text">
+                        Palm-lined pathways and curated greenery for scenic evening walks.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Gated Community Layout -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/gated-community.jpg" alt="Gated Community Layout" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-shield-halved"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Gated Community Layout</h4>
+                      <div class="city-block_one-text">
+                        Secure, private living with controlled access points.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Wide Internal Roads -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/internal-roads.jpg" alt="Wide Internal Roads" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-road"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Wide Internal Roads</h4>
+                      <div class="city-block_one-text">
+                        Smooth 23–30 ft roads for easy vehicle movement.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. Night-Lit Street Lighting -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/street-lighting.jpg" alt="Night Lit Street Lighting" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-lightbulb"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Night-Lit Street Lighting</h4>
+                      <div class="city-block_one-text">
+                        Well-lit streets ensuring safety and visibility after sunset.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 11. Coconut Groves & Green Trails -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/coconut-groove.jpg" alt="Coconut Groves and Green Trails" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-tree"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Coconut Groves & Green Trails</h4>
+                      <div class="city-block_one-text">
+                        Lush groves and walking trails celebrating farm-style living.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12. Exclusive Bali Club Membership -->
+          <div class="swiper-slide">
+            <div class="city-block_one">
+              <div class="city-block_one-inner">
+                <div class="city-block_one-image">
+                  <img src="assets/images/gallery/club-bali.jpg" alt="Exclusive Bali Club Membership Access" />
+                  <div class="city-block_one-overlay">
+                    <div class="city-block_one-content">
+                      <div class="city-block_one-title">
+                        <i class="fa-solid fa-crown"></i>
+                      </div>
+                      <h4 class="city-block_one-heading">Exclusive Bali Club Membership Access</h4>
+                      <div class="city-block_one-text">
+                        Premium members-only access with curated lifestyle privileges.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+					
+					<!-- If we need pagination -->
+					<div class="four-items_slider-pagination"></div>
+					
+					<!-- If we need navigation buttons -->
+					<div class="four-items_slider-prev"><img src="assets/images/icons/prev-arrow.png" alt="" /></div>
+					<div class="four-items_slider-next"><img src="assets/images/icons/next-arrow.png" alt="" /></div>
+					
+				</div>
+			</div>
+			
+		</div>
+	</section>
+	<!-- End Cities One -->
+	
+	<!-- App One -->
+	<!-- End App One -->
+	
+	<!-- Property One -->
+<section class="property-one" id="property-one">
+  <div class="auto-container">
+
+    <!-- Section Title -->
+    <div class="sec-title centered">
+      <div class="sec-title_title">Bali Living Options</div>
+      <h2 class="sec-title_heading">
+        Choose Your <br> Dream Lifestyle
+      </h2>
+      <p class="sec-title_text">
+        Select from farm ownership & tropical villas inspired by Bali.
+      </p>
+    </div>
+
+    <div class="row clearfix">
+
+      <!-- Estate Farm Plot -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="layout-card" style="background-image:url('assets/images/gallery/farm.jpg')">
+          <div class="layout-overlay"></div>
+          <div class="layout-content layout-side">
+            <h4>Estate Farm Plot</h4>
+            <p>20 Cents Farm Land<br>₹60 Lakhs<br>Own your land, build your vision.</p>
+            <button class="floor-btn" onclick="openInterest()">Register Interest</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1500 Sq.Ft Villa + 10 cents -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="layout-card" style="background-image:url('assets/images/gallery/villa1.jpg')">
+          <div class="layout-overlay"></div>
+          <div class="layout-content layout-side">
+            <h4>Signature Bali Villa</h4>
+            <p>1500 Sq.Ft + 10 Cents<br>₹60 Lakhs<br>Ready-to-own tropical home.</p>
+            <button class="floor-btn" onclick="openInterest()">Register Interest</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dual Villas -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="layout-card" style="background-image:url('assets/images/gallery/villa2.jpg')">
+          <div class="layout-overlay"></div>
+          <div class="layout-content layout-side">
+            <h4>Dual Retreat Villas</h4>
+            <p>Two Houses + 20 Cents<br>₹90 Lakhs<br>Ideal for family stay OR rental income.</p>
+            <button class="floor-btn" onclick="openInterest()">Register Interest</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grand Villa -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="layout-card" style="background-image:url('assets/images/gallery/villa3.jpg')">
+          <div class="layout-overlay"></div>
+          <div class="layout-content layout-side">
+            <h4>Grand Pavilion Villa</h4>
+            <p>2500 Sq.Ft + 20 Cents<br>₹80 Lakhs<br>Spacious retreat amidst green farms.</p>
+            <button class="floor-btn" onclick="openInterest()">Register Interest</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FLOOR PLAN MODAL (SLIDER) -->
+<div id="floorModal" class="floor-modal">
+  
+  <div class="floor-modal-inner">
+    <span class="floor-close" id="floorCloseBtn">×</span>
+
+    <div class="swiper floorSwiper">
+      <div class="swiper-wrapper" id="floorGallery"></div>
+
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</div>
+
+
+
+	<!-- End Property One -->
+	
+
+
+	<!-- Master Plan Section -->
+<section class="master-plan-section" id="master-plan-section">
+  <div class="auto-container">
+
+    <div class="sec-title centered">
+      <div class="sec-title_title">Project Layout</div>
+      <h2 class="sec-title_heading">Master Plan</h2>
+    </div>
+
+    <!-- Locked Container -->
+    <div class="master-plan-container">
+
+      <div class="master-plan-image locked" id="masterPlan">
+        <img src="assets/images/bali2.0sp.png" alt="Master Plan">
+
+        <div class="lock-overlay" id="lockTrigger">
+          <i class="fa-solid fa-lock" id="lockIcon"></i>
+          <span>Click to Unlock Master Plan</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Customer Details Modal -->
+<div id="customerFormModal">
+  <div class="form-modal-content">
+    <span class="close-form" id="closeCustomerForm">&times;</span>
+
+    <h2>Enter Your Details</h2>
+    <p>Please provide your details to view plot availability</p>
+
+    <form id="customerDetailsForm">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+
+      <textarea name="reason" placeholder="Reason for enquiry" rows="3"></textarea>
+
+      <button type="submit">View Available Plots</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- NEW: Plot Booking Section -->
+<section 
+  class="plot-booking-section"
+  style="
+    min-height: 450px;
+    background: 
+      linear-gradient(rgba(111, 111, 111, 0.6), rgba(236, 236, 236, 0.6)),
+      url('assets/images/plotsi.jpg') center/cover no-repeat;
+  "
+>
+  <div class="auto-container">
+    <div class="sec-title centered">
+      <div class="sec-title_title">Exclusive Plots</div>
+      <h2 class="sec-title_heading">Plot Availability & Booking</h2>
+      <p class="sec-title_text">Check real-time plot status and book your dream plot instantly</p>
+    </div>
+    <button class="plot-booking-btn" id="openPlotBooking">View Plot Availability & Book</button>
+  </div>
+</section>
+
+
+
+<!-- Plot Booking Full Modal -->
+<div id="plotBookingModal">
+  <div class="modal-content">
+    <span class="close-plot" id="closePlotBooking">&times;</span>
+    <h2 style="text-align:center; color:rgb(0,87,75); margin-bottom:30px;">Book your desired plot</h2>
+    <div class="parking-lot">
+      <div class="top-row">
+        <div class="spot-group">
+          <div class="spot" data-plot="1,2">1,2</div>
+          <div class="spot" data-plot="3">3</div>
+          <div class="spot" data-plot="4">4</div>
+          <div class="spot" data-plot="5">5</div>
+          <div class="spot" data-plot="6">6</div>
+          <div class="spot" data-plot="7">7</div>
+          <div class="spot" data-plot="8">8</div>
+          <div class="spot" data-plot="9">9</div>
+          <div class="spot" data-plot="10">10</div>
+          <div class="spot" data-plot="11">11</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="spot-group">
+          <div class="spot" data-plot="12">12</div>
+          <div class="spot" data-plot="13">13</div>
+          <div class="spot" data-plot="14">14</div>
+          <div class="spot" data-plot="15">15</div>
+          <div class="spot" data-plot="16">16</div>
+          <div class="spot" data-plot="17">17</div>
+          <div class="spot" data-plot="18">18</div>
+          <div class="spot" data-plot="19">19</div>
+          <div class="spot" data-plot="20">20</div>
+          <div class="spot" data-plot="21">21</div>
+          <div class="spot" data-plot="22">22</div>
+          <div class="spot" data-plot="23">23</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="spot-group">
+          <div class="spot" data-plot="24">24</div>
+          <div class="spot" data-plot="25">25</div>
+          <div class="spot" data-plot="26">26</div>
+          <div class="spot" data-plot="27">27</div>
+          <div class="spot" data-plot="28">28</div>
+          <div class="spot" data-plot="29">29</div>
+          <div class="spot" data-plot="30">30</div>
+          <div class="spot" data-plot="31">31</div>
+          <div class="spot" data-plot="32">32</div>
+          <div class="spot" data-plot="33">33</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="spot-group">
+          <div class="spot" data-plot="34">34</div>
+          <div class="spot" data-plot="68">68</div>
+          <div class="park">PARK</div>
+        </div>
+      </div>
+      <div class="road">ROAD</div>
+      <div class="bottom-row">
+        <div class="spot-group">
+          <div class="spot" data-plot="66,67">66,67</div>
+          <div class="spot" data-plot="65">65</div>
+          <div class="spot" data-plot="64">64</div>
+          <div class="spot" data-plot="63">63</div>
+          <div class="spot" data-plot="62">62</div>
+          <div class="spot" data-plot="61">61</div>
+          <div class="spot" data-plot="60">60</div>
+          <div class="spot" data-plot="59">59</div>
+          <div class="spot" data-plot="58">58</div>
+          <div class="spot" data-plot="57">57</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="spot-group">
+          <div class="spot" data-plot="56">56</div>
+          <div class="spot" data-plot="55">55</div>
+          <div class="spot" data-plot="54">54</div>
+          <div class="spot" data-plot="53">53</div>
+          <div class="spot" data-plot="52">52</div>
+          <div class="spot" data-plot="51">51</div>
+          <div class="spot" data-plot="50">50</div>
+          <div class="spot" data-plot="49">49</div>
+          <div class="spot" data-plot="48">48</div>
+          <div class="spot" data-plot="47">47</div>
+          <div class="spot" data-plot="46">46</div>
+          <div class="spot" data-plot="45">45</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="spot-group">
+          <div class="spot" data-plot="44">44</div>
+          <div class="spot" data-plot="43">43</div>
+          <div class="spot" data-plot="42">42</div>
+          <div class="spot" data-plot="41">41</div>
+          <div class="spot" data-plot="40">40</div>
+          <div class="spot" data-plot="39">39</div>
+          <div class="spot" data-plot="38">38</div>
+          <div class="spot" data-plot="37">37</div>
+          <div class="spot" data-plot="36">36</div>
+          <div class="spot" data-plot="35">35</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="spot-group">
+          <div class="spot" data-plot="69">69</div>
+          <div class="spot" data-plot="70">70</div>
+          <div class="spot" data-plot="71">71</div>
+          <div class="spot" data-plot="72">72</div>
+          <div class="spot" data-plot="73">73</div>
+          <div class="spot" data-plot="74">74</div>
+          <div class="spot" data-plot="75">75</div>
+          <div class="spot" data-plot="76">76</div>
+          <div class="spot" data-plot="77">77</div>
+          <div class="spot" data-plot="78">78</div>
+          <div class="spot" data-plot="79">79</div>
+          <div class="spot" data-plot="80">80</div>
+          <div class="spot" data-plot="PP1">PP1</div>
+          <div class="spot" data-plot="PP2">PP2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Plot Details Modal (inside plot booking) -->
+<div id="plotDetailsModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="plot-details"></div>
+    <button id="book-consult">Book Consultation</button>
+    <button id="advance-book">Advance Booking</button>
+  </div>
+</div>
+
+<!-- Big Project Marquee -->
+<section class="projects-marquee-large">
+  <marquee behavior="scroll" direction="left" scrollamount="10">
+    ★ Luxury X  |  
+    ★ Blue Spot 3.0  |  
+    ★ Thirumazhisai 4.0  |  
+    ★ Greenspot - Oragadam  |  
+    ★ Bluespot Elite  |  
+    ★ Kovai South IT Corridor  |  
+    ★ Coonoor  |  
+    ★ Green Spot Coonoor II  |  
+    ★ Thiruvallur 2.0  |
+  </marquee>
+</section>
+
+
+	
+	<!-- Testimonial Three -->
+	<section class="testimonial-three style-two" id="testimonial-three style-two">
+		<div class="auto-container">
+			<div class="inner-container">
+				<!-- Sec Title -->
+				<div class="sec-title">
+					<div class="sec-title_title">Get to know our Client Feedback</div>
+					<h2 class="sec-title_heading">Client Testimonials</h2>
+				</div>
+				<div class="two-items_slider swiper-container">
+					<div class="swiper-wrapper">
+
+						<!-- Slide -->
+						<!-- Slide -->
+<div class="swiper-slide">
+  <div class="testimonial-block_three">
+    <div class="testimonial-block_three-inner">
+
+      <div class="testimonial-block_three-rating">
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+      </div>
+
+      <div class="testimonial-block_three-text">
+        We discovered Bluespot through an Instagram ad and were later referred by Kamatchi from Manju Groups, who assured us that the site visit came with no obligation. We loved the location so much that we decided to book a plot with an advance payment. Most of the plots are already sold, so we highly recommend booking early.
+      </div>
+
+      <div class="testimonial-block_three-author">
+        <span><img src="assets/images/icons/Profile free icons designed by Freepik.jpg" alt="Manjusri" /></span>
+        <strong>Manjusri</strong>
+        Nandambakkam, Chennai
+      </div>
+
+      <div class="testimonial-block_three-quote">
+        <img src="assets/images/greenquotation.png" alt="" />
+      </div>
+
+    </div>
+  </div>
+</div>
+
+						<!-- Slide -->
+						<!-- Slide -->
+<div class="swiper-slide">
+  <div class="testimonial-block_three">
+    <div class="testimonial-block_three-inner">
+
+      <div class="testimonial-block_three-rating">
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+      </div>
+
+      <div class="testimonial-block_three-text">
+        I visited the Royal Enclave plots by Manju Groups and was truly impressed with the location and amenities. Everything matched my expectations, and I have now successfully registered my plot. The entire process was smooth, and the team was extremely helpful throughout.
+      </div>
+
+      <div class="testimonial-block_three-author">
+        <span><img src="assets/images/icons/Profile free icons designed by Freepik (1).jpg" alt="Raja" /></span>
+        <strong>Raja</strong>
+        Chennai
+      </div>
+
+      <div class="testimonial-block_three-quote">
+        <img src="assets/images/greenquotation.png" alt="" />
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Slide -->
+<div class="swiper-slide">
+  <div class="testimonial-block_three">
+    <div class="testimonial-block_three-inner">
+
+      <div class="testimonial-block_three-rating">
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+      </div>
+
+      <div class="testimonial-block_three-text">
+        I am from West Tambaram and had always dreamed of owning an independent villa after living in apartments for many years. Manju Groups made this dream a reality. Their team guided me at every step, making the entire process smooth and hassle-free.
+      </div>
+
+      <div class="testimonial-block_three-author">
+        <span><img src="assets/images/icons/Profile free icons designed by Freepik (1).jpg" alt="Ganesh" /></span>
+        <strong>Ganesh</strong>
+        West Tambaram, Chennai
+      </div>
+
+      <div class="testimonial-block_three-quote">
+        <img src="assets/images/greenquotation.png" alt="" />
+      </div>
+
+    </div>
+  </div>
+</div>
+
+					<!-- If we need pagination -->
+					<div class="two-items_slider-pagination"></div>
+					
+					<!-- If we need navigation buttons -->
+					<div class="two-items_slider-prev"><img src="assets/images/icons/prev-arrow.png" alt="" /></div>
+					<div class="two-items_slider-next"><img src="assets/images/icons/next-arrow.png" alt="" /></div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Testimonial Three -->
+
+
+
+	
+	<!-- Contact One -->
+<!-- Contact One -->
+<section class="contact-one" id="contact-one">
+  <!-- Background Image (KEEP) -->
+  <div class="contact-one_image" style="background-image:url(assets/images/gallery/last.jpg)"></div>
+
+  <div class="auto-container">
+    <div class="row clearfix align-items-center">
+
+      <!-- Form Column (UNCHANGED) -->
+      <div class="contact-one_form-column col-lg-6 col-md-12 col-sm-12">
+        <div class="contact-one_form-outer wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <h3 class="contact-one_form-title">Enquire Now</h3>
+          <div class="contact-one_form-text">
+            Get in touch with us to know more about Luxury X.
+          </div>
+
+          <div class="contact-form">
+            <form method="post" action="contact.html">
+
+              <div class="form-group">
+                <i><img src="assets/images/icons/user-1.svg" alt=""></i>
+                <input type="text" name="name" placeholder="Full Name" required>
+              </div>
+
+              <div class="form-group">
+                <i><img src="assets/images/icons/envelope.svg" alt=""></i>
+                <input type="email" name="email" placeholder="Email Address" required>
+              </div>
+
+              <div class="form-group">
+                <i><img src="assets/images/icons/phone-1.svg" alt=""></i>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+              </div>
+
+              <div class="form-group">
+                <textarea name="message" placeholder="Your Message"></textarea>
+              </div>
+
+              <div class="form-group">
+                <button class="submit-btn">Send Enquiry</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Column (REPLACED CONTENT COLUMN) -->
+      <div class="contact-one_content-column col-lg-6 col-md-12 col-sm-12">
+        <div class="contact-one_content-outer wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+
+          <div class="contact-one_map-inner">
+            <iframe
+              src="https://www.google.com/maps?q=Kembarampalayam,+Tamil+Nadu&z=15&output=embed" 
+              loading="lazy"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- End Contact One -->
+
+<!-- End Contact One -->
+
+
+	
+	<!-- Main Footer -->
+	<!-- Main Footer -->
+<!-- Main Footer -->
+<footer class="main-footer">
+
+  <!-- Decorative Pattern -->
+  <div class="main-footer_pattern" style="background-image: url(assets/images/background/footer-1.png)"></div>
+
+  <!-- Widgets Section -->
+  <div class="widgets-section">
+    <div class="auto-container">
+      <div class="row clearfix">
+
+        <!-- Left Big Column -->
+        <div class="big-column col-lg-6 col-md-12 col-sm-12">
+          <div class="row clearfix">
+
+            <!-- About Company -->
+            <div class="footer_column col-lg-7 col-md-6 col-sm-12">
+              <div class="footer-widget">
+                <div class="footer-logo">
+                  <a href="index.html">
+                    <img src="assets/images/MGLOGO.png" alt="Manju Groups">
+                  </a>
+                </div>
+
+                <div class="footer-text">
+                  MANJU GROUPS is dedicated to delivering premium residential
+                  developments that blend architectural excellence, modern lifestyles,
+                  and long-term value.
+                </div>
+              </div>
+            </div>
+
+            <!-- Company Links -->
+            <div class="footer_column col-lg-5 col-md-6 col-sm-12">
+              <div class="footer-widget links-widget">
+                <h5 class="footer-title">Our Company</h5>
+                <ul class="footer-list">
+                  <li><a href="about.html">About Us</a></li>
+                  <li><a href="contact.html">Contact Us</a></li>
+                  <li><a href="faq.html">FAQs</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Big Column -->
+        <div class="big-column col-lg-6 col-md-12 col-sm-12">
+          <div class="row clearfix">
+
+            <!-- Locations -->
+            <div class="footer_column col-lg-6 col-md-6 col-sm-12">
+              <div class="footer-widget links-widget">
+                <h5 class="footer-title">Our Locations</h5>
+                <ul class="footer-list">
+                  <li><a href="#">Chennai</a></li>
+                  <li><a href="#">Coimbatore</a></li>
+                  <li><a href="#">Dubai</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="footer_column col-lg-6 col-md-6 col-sm-12">
+              <div class="footer-widget contact-widget">
+                <h5 class="footer-title">Contact Information</h5>
+                <ul class="footer-contact_list">
+                  <li>
+                    <span class="flaticon-pin"></span>
+                    No.8/57, Sapthaswara Apartments,<br>
+                    1st Avenue, Ashok Nagar,<br>
+                    Chennai – 600083
+                  </li>
+
+                  <li>
+                    <span class="flaticon-telephone"></span>
+                    <a href="tel:+9197444333666">+91 97 44 333 666</a>
+                  </li>
+
+                  <li>
+                    <span class="flaticon-mail-1"></span>
+                    <a href="mailto:info@manjugroups.in">info@manjugroups.in</a>
+                  </li>
+
+                  <li>
+                    <span class="flaticon-globe"></span>
+                    <a href="https://www.manjugroups.in" target="_blank" rel="noopener noreferrer">
+                      www.manjugroups.in
+                    </a>
+                  </li>
+                </ul>
+
+          
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- End Widgets Section -->
+
+  <!-- PROJECTS SCROLL TICKER -->
+  <marquee class="projects-marquee" behavior="scroll" direction="left" scrollamount="8">
+    <a>★★ OUR OTHER PROJECTS ★★|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Luxury X|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Blue Spot 3.0|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Thirumazhisai 4.0|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Greenspot - Oragadam |</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Bluespot Elite</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Kovai South IT Corridor|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Coonoor|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Green Spot Coonoor II|</a>
+    <a href="https://manjugroups.in/on-going-projects.php" target="_blank">★ Thiruvallur 2.0 |</a>
+  </marquee>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="auto-container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+        <div class="copyright">
+          © 2025 <strong>MANJU GROUPS</strong>. All Rights Reserved.
+        </div>
+
+        <div class="footer_socials">
+          <a href="https://wa.me/9197444333666" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/manjufoundations/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/manjugroups_official" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://linkedin.com/company/manju-infraprojects-llp" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.youtube.com/@ManjuGroup" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+
+        <ul class="footer-bottom_nav">
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+</footer>
+<!-- End Main Footer -->
+
+	<!-- Search Popup -->
+	<div class="search-popup">
+		<div class="color-layer"></div>
+		<button class="close-search"><span class="flaticon-close"></span></button>
+		<form method="post" action="blog.html">
+			<div class="form-group">
+				<input type="search" name="search-field" value="" placeholder="Search Here" required="">
+				<button class="fa fa-solid fa-magnifying-glass fa-fw" type="submit"></button>
+			</div>
+		</form>
+	</div>
+	<!-- End Search Popup -->
+	
+	
+</div>
+<!-- End PageWrapper -->
+
+<div class="progress-wrap">
+	<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+	</svg>
+</div>
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/appear.js"></script>
+<script src="assets/js/parallax.min.js"></script>
+<script src="assets/js/tilt.jquery.min.js"></script>
+<script src="assets/js/jquery.paroller.min.js"></script>
+<script src="assets/js/wow.js"></script>
+<script src="assets/js/swiper.min.js"></script>
+<script src="assets/js/backtotop.js"></script>
+<script src="assets/js/odometer.js"></script>
+<script src="assets/js/parallax-scroll.js"></script>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/SplitText.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/ScrollToPlugin.min.js"></script>
+<script src="assets/js/ScrollSmoother.min.js"></script>
+
+<script src="assets/js/magnific-popup.min.js"></script>
+<script src="assets/js/jquery.meanmenu.min.js"></script>
+<script src="assets/js/nav-tool.js"></script>
+<script src="assets/js/jquery-ui.js"></script>
+<script src="assets/js/jquery.countdown.js"></script>
+<script src="assets/js/element-in-view.js"></script>
+<script src="assets/js/script.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+   const firebaseConfig = {
+    apiKey: "AIzaSyBbQ3sJJpYK9ihf7qvKB2RGHf3UU1F9TIk",
+    authDomain: "vantageviewbali.firebaseapp.com",
+    projectId: "vantageviewbali",
+    storageBucket: "vantageviewbali.firebasestorage.app",
+    messagingSenderId: "211346281997",
+    appId: "1:211346281997:web:a80109e470aba0ee62e744"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  /*********************
+  SAVE FUNCTION
+*********************/
+async function saveForm(collectionName, data) {
+  await addDoc(collection(db, collectionName), data);
+}
+
+/************************************
+  1️⃣ Brochure Form
+************************************/
+document.getElementById("downloadBrochureBtn")?.addEventListener("click", async () => {
+  let data = {
+    name: document.getElementById("brochureName").value,
+    phone: document.getElementById("brochurePhone").value,
+    email: document.getElementById("brochureEmail").value,
+    reason: document.getElementById("brochureReason").value,
+    source: "Brochure Form",
+    createdAt: new Date()
+     };
+
+  if (!data.name || !data.phone || !data.email) return alert("Fill all fields!");
+
+  await saveForm("bali2.0", data);
+
+
+
+  alert("Saved! Downloading brochure...");
+  window.location.href = "assets/brochure/VantageView";
+
+});
+
+/************************************
+  2️⃣ Call Booking Form
+************************************/
+document.getElementById("bookCallBtn")?.addEventListener("click", async () => {
+  let data = {
+    name: document.getElementById("callName").value,
+    phone: document.getElementById("callPhone").value,
+    time: document.getElementById("callTime").value,
+    source: "Call Booking",
+    createdAt: new Date()
+  };
+
+  if (!data.name || !data.phone) return alert("Fill all fields!");
+
+  await saveForm("bali2.0", data);
+
+  
+
+  alert("Call booked! Our team will call you.");
+  document.getElementById("callModal").style.display = "none";
+});
+
+/************************************
+  3️⃣ Master Plan Popup
+************************************/
+document.getElementById("submitDetails")?.addEventListener("click", async () => {
+  let data = {
+    name: document.getElementById("mpName").value,
+    phone: document.getElementById("mpPhone").value,
+    reason: document.getElementById("mpReason").value,
+    source: "Master Plan Form",
+    createdAt: new Date()
+  };
+
+  if (!data.name || !data.phone) return alert("Fill all fields!");
+
+  await saveForm("bali2.0", data);
+
+ 
+
+  alert("Saved! Unlocking master plan...");
+
+  // Close popup
+  document.getElementById("mpModal").style.display = "none";
+
+  // REMOVE lock overlay
+  document.getElementById("lockTrigger").style.display = "none";
+  document.getElementById("masterPlan").classList.remove("locked");
+
+  // CHANGE image to unlocked High-Res version
+  document.getElementById("mpImage").src = "assets/images/MPASLX.png";
+});
+
+
+
+/************************************
+  4️⃣ Customer Details Modal
+************************************/
+document.getElementById("customerDetailsForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let form = e.target;
+  
+  let data = {
+    name: form.name.value,
+    phone: form.phone.value,
+    email: form.email.value,
+    reason: form.reason.value,
+    source: "Plot Availability Form",
+    createdAt: new Date()
+  };
+
+  await saveForm("bali2.0", data);
+
+  
+
+  alert("Saved! Showing plot availability...");
+  document.getElementById("customerFormModal").style.display = "none";
+});
+
+
+/************************************
+  5️⃣ Footer / Enquiry Form
+************************************/
+document.querySelector(".contact-form form")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let form = e.target;
+
+  let data = {
+    name: form.name.value,
+    phone: form.phone.value,
+    email: form.email.value,
+    message: form.message.value,
+    source: "Footer Contact Form",
+    createdAt: new Date()
+  };
+
+  await saveForm("bali2.0", data);
+
+  alert("Thanks! We will contact you soon.");
+  form.reset();
+});
+
+
+
+
+
+</script>
+<script>
+// Open popup
+function openInterest() {
+  console.log("Open Interest Modal");
+  document.getElementById("interestModal").style.display = "flex";
+}
+
+// Close popup
+function closeInterest() {
+  document.getElementById("interestModal").style.display = "none";
+}
+
+// Optional submit handler
+function submitInterest() {
+  alert("Details submitted! Our team will contact you.");
+  closeInterest();
+}
+</script>
+
+</body>  
+</html> 
