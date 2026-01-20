@@ -819,6 +819,7 @@ img{
 	font-size:16px;
 	margin-top:20px;
     color:rgba(var(--color-two-rgb), 0.70);
+    text-align: justify;
 }
 
 .sec-title.light .sec-title_text{
