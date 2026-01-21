@@ -299,7 +299,7 @@
 	font-weight:500;
 	line-height:20px;
 	padding:14px 0px;
-	color: #0b4f3f;
+	color:rgba(var(--color-two-rgb), 0.70);
 	transition:all 500ms ease;
 	-moz-transition:all 500ms ease;
 	-webkit-transition:all 500ms ease;
