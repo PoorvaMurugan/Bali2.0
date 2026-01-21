@@ -1018,7 +1018,7 @@
 	bottom:0px;
 	overflow:hidden;
 	border-radius:16px;
-	background-color:var(--color-four);
+	background-color:#f2f7f4;
 }
 
 .property-block_one{
@@ -9008,4 +9008,32 @@ margin-top: 50px !important;
   text-align: center !important;
   max-width: 700px;
   margin: 12px auto 0;   /* centers it perfectly */
+}
+
+/* Detach amenities slider dots from green section */
+.cities-one .four-items_slider-pagination {
+  position: relative;
+  margin-top: -50px;        /* pull dots upward */
+  padding-top: 20px;        /* breathing space */
+       /* ⬅ breaks green attachment */
+  display: inline-block;
+  border-radius: 20px;
+  z-index: 10;
+}
+.cities-one .four-items_slider-pagination {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.cities-one .four-items_slider-pagination {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+@media (max-width: 768px) {
+  .cities-one .four-items_slider-pagination {
+    margin-top: -30px;
+    padding: 14px 18px;
+  }
+}
+
+.cities-one{
+  padding-top: 30px !important;
 }
