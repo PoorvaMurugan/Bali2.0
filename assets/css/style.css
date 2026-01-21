@@ -9037,3 +9037,77 @@ margin-top: 50px !important;
 .cities-one{
   padding-top: 30px !important;
 }
+
+/* Footer Disclaimer Strip below footer */
+.footer-disclaimer-strip {
+  width: 100%;
+  padding: 8px 15px;
+  background-color: #000000ea; /* matches the empty space */
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgb(184, 183, 183);
+  text-align: center;
+  font-weight: 400;
+}
+
+/* REMOVE ALL GLOBAL BOTTOM SPACING */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* REMOVE FOOTER EXTRA SPACE */
+.main-footer,
+.footer-bottom {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* DISCLAIMER – NO GAP, STICKS TO FOOTER */
+.footer-disclaimer {
+  margin: 0 !important;
+  padding: 6px 12px;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+  color: rgba(255,255,255,0.65);
+  background: #000000; /* or any color you want */
+}
+
+/* ENSURE NOTHING ADDS SPACE AFTER */
+body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ================================
+   FORCE NAV TEXT COLOR OVERRIDE
+================================ */
+
+/* NORMAL STATE */
+.main-header .main-menu .navigation > li > a,
+.main-header .main-menu .navigation > li > a .menu-text span {
+  color: #0b3d2e !important;
+}
+
+/* HOVER STATE */
+.main-header .main-menu .navigation > li:hover > a,
+.main-header .main-menu .navigation > li:hover > a .menu-text span {
+  color: #6fcf97 !important;
+}
+
+/* ACTIVE / CURRENT PAGE */
+.main-header .main-menu .navigation > li.current > a,
+.main-header .main-menu .navigation > li.current > a .menu-text span {
+  color: #6fcf97 !important;
+}
+
+/* STICKY HEADER (SCROLL STATE) */
+.main-header.fixed-header .main-menu .navigation > li > a,
+.main-header.fixed-header .main-menu .navigation > li > a .menu-text span {
+  color: #0b3d2e !important;
+}
+
+.main-header.fixed-header .main-menu .navigation > li:hover > a,
+.main-header.fixed-header .main-menu .navigation > li:hover > a .menu-text span {
+  color: #6fcf97 !important;
+}
